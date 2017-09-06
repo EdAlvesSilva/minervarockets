@@ -18,15 +18,7 @@
 // 02     <--------------> RST
 
 // * podem ser alterados. Os demais pinos sao particulares do Arduino UNO
-// [COBRUF 2017 : Para o Arduino Nano, as seguintes conexoes devem ser feitas
-// 3.3V   <--------------> SCK
-// GND    <--------------> GND
-// 13     <--------------> SCK
-// 12     <--------------> MISO
-// 11     <--------------> MOSI
-// 04     <--------------> CS
-// 03     <--------------> G0
-// 02     <--------------> RST ]
+// [COBRUF 2017 : Serao utilizadas as conexoes feitas acima ]
 
 #include <SPI.h>
 #include <RH_RF95.h>
