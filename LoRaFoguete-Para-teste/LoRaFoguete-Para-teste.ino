@@ -21,7 +21,7 @@
 // [COBRUF 2017 : Serao utilizadas as conexões feitas acima]
 
 #include <SPI.h>
-#include <RH_RF95modificado.h>
+#include <RH_RF95.h>
 #include <EEPROM.h>
 
 #define RFM95_CS 4
@@ -86,9 +86,9 @@ void loop()
   rf95.send((uint8_t *)radiopacket, 20);
 
   Serial.println("Esperando o pacote ser enviado..."); delay(10);
-  rf95.waitPacketSent();
+  
   // Espera o pacote ser enviando
-  uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
-  uint8_t len = sizeof(buf);
+  rf95.waitPacketSent();
+  Serial.print("Pacote enviado! Tempo : ");
   delay(100);
 }

@@ -90,7 +90,7 @@ void loop()
       RH_RF95::printBuffer("Recebido: ", buf, len);
       Serial.print("Mensagem Recebida: ");
       Serial.println((char*)buf);
-       Serial.print("RSSI: ");
+      Serial.print("RSSI: ");
       Serial.println(rf95.lastRssi(), DEC);
       Serial.print("Tempo : ");
       Serial.println(millis());
