@@ -21,7 +21,7 @@
 // [COBRUF 2017 : Serao utilizadas as conexoes feitas acima ]
 
 #include <SPI.h>
-#include <RH_RF95.h>
+#include <RH_RF95N.h>
 
 #define RFM95_CS 4
 #define RFM95_RST 2
@@ -83,17 +83,40 @@ void loop()
     // Verificacao de mensagem   
     uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(buf);
+    union u_tag {
+      float a;
+      byte b[4];
+    } u;
+    uint32_t t=0;
+    int i;
+
     
     if (rf95.recv(buf, &len))
     {
+      t=0;
       digitalWrite(LED, HIGH);
       RH_RF95::printBuffer("Recebido: ", buf, len);
       Serial.print("Mensagem Recebida: ");
       Serial.println((char*)buf);
       Serial.print("RSSI: ");
       Serial.println(rf95.lastRssi(), DEC);
-      Serial.print("Tempo : ");
-      Serial.println(millis());
+      for (i=0;i<=(int)len;i++) {
+        if ((i<=7)&&(i>=4)) {
+           t += buf[i]*pow(256,(i-4));  
+        }
+        else {
+          u.b[i%4] = buf[i];
+        }
+        if ((i%4 == 3)){
+          if ((i<=7)&&(i>=4)){
+           Serial.println(t); 
+          }
+          else {
+            Serial.println(u.a);
+          }
+        }
+      }
+      Serial.println();
     }
     else
     {

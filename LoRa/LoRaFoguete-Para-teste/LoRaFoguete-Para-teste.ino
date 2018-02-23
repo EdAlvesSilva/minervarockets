@@ -77,13 +77,13 @@ void loop()
   Serial.println("Enviando Pacote para o o servidor");
   // Send a message to rf95_server
   
-  char radiopacket[20] = "ROCKETS!!! #      ";
-  itoa(packetnum++, radiopacket+13, 10);
+  char radiopacket[] = "ROCKETS!!! MEU NOME EH JONAS #      ";
+  sprintf(radiopacket,"%s%i",radiopacket,packetnum++);
   Serial.print("ENVIANDO "); Serial.println(radiopacket);
-  radiopacket[19] = 0;
+  //radiopacket[] = 0;
   
   Serial.println("Sending..."); delay(10);
-  rf95.send((uint8_t *)radiopacket, 20);
+  rf95.send((uint8_t *)radiopacket, strlen(radiopacket)+1);
 
   Serial.println("Esperando o pacote ser enviado..."); delay(10);
   
